@@ -1,4 +1,0 @@
-"..\Output\STARTUP.obj",
-"..\Output\°Ë¼ü°ËµÆ.obj" 
-TO "..\Output\Demo" 
-PRINT("..\Listing\Demo.m51")
