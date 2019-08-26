@@ -1,0 +1,57 @@
+C51 COMPILER V9.56.0.0   EIGHT_KEYS_AND_EIGHT_LIGHTS                                       08/25/2019 18:41:30 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE EIGHT_KEYS_AND_EIGHT_LIGHTS
+OBJECT MODULE PLACED IN .\Objects\eight keys and eight lights.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE eight keys and eight lights.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\eight keys and eight lights.lst) TABS(2) OBJECT(.\Objects\eight keys and eight lights.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF eight keys and eight lights.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include<reg51.h>
+   2          #define KEY P2;
+   3          sbit LED1 = P0^0;
+   4          sbit LED2 = P0^1;
+   5          sbit LED3 = P0^2;
+   6          sbit LED4 = P0^3;
+   7          sbit LED5 = P0^4;
+   8          sbit LED6 = P0^5;
+   9          sbit LED7 = P0^6;
+  10          sbit LED8 = P0^7;         
+  11          void main()
+  12          {
+  13   1        P0 = 0XFF;
+  14   1        P2 = 0xff;
+  15   1        while(1)
+  16   1        {
+  17   2          switch(P2)
+  18   2          {
+  19   3            case 0xfe : LED1 = ~LED1;break;
+  20   3            case 0xfd : LED2 = ~LED2;break;
+  21   3            case 0xfb : LED3 = ~LED3;break;
+  22   3            case 0xf7 : LED4 = ~LED4;break;
+  23   3            case 0xef : LED5 = ~LED5;break;
+  24   3            case 0xdf : LED6 = ~LED6;break;
+  25   3            case 0xbf : LED7 = ~LED7;break;
+  26   3            case 0x7f : LED8 = ~LED8;break;
+  27   3            default : break;
+  28   3          }
+  29   2        }
+  30   1      }
+  31                
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     72    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
