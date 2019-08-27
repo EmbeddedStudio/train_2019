@@ -1,0 +1,196 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/26/2019  11:52:46  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\three keys and eight lights.obj TO .\Objects\three keys and
+>>  eight lights PRINT (.\Listings\three keys and eight lights.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\three keys and eight lights.obj (THREE_KEYS_AND_EIGHT_LIGHTS)
+
+
+LINK MAP OF MODULE:  .\Objects\three keys and eight lights (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?THREE_KEYS_AND_EIGHT_LIGHTS
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     005EH     UNIT         ?PR?MAIN?THREE_KEYS_AND_EIGHT_LIGHTS
+            CODE    085EH     0037H     UNIT         ?PR?KEYSCAN?THREE_KEYS_AND_EIGHT_LIGHTS
+            CODE    0895H     0022H     UNIT         ?PR?_DELAY?THREE_KEYS_AND_EIGHT_LIGHTS
+            CODE    08B7H     000CH     UNIT         ?C_C51STARTUP
+            CODE    08C3H     0008H     UNIT         ?CO?THREE_KEYS_AND_EIGHT_LIGHTS
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\three keys and eight lights (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?THREE_KEYS_AND_EIGHT_LIGHTS
+
+?PR?MAIN?THREE_KEYS_AND_EIGHT_LIGHTS
+  +--> ?PR?KEYSCAN?THREE_KEYS_AND_EIGHT_LIGHTS
+  +--> ?PR?_DELAY?THREE_KEYS_AND_EIGHT_LIGHTS
+
+?PR?KEYSCAN?THREE_KEYS_AND_EIGHT_LIGHTS
+  +--> ?PR?_DELAY?THREE_KEYS_AND_EIGHT_LIGHTS
+
+?PR?_DELAY?THREE_KEYS_AND_EIGHT_LIGHTS
+  +--> ?CO?THREE_KEYS_AND_EIGHT_LIGHTS
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\three keys and eight lights (?C_STARTUP)
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/26/2019  11:52:46  PAGE 2
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:08B7H         SEGMENT       ?C_C51STARTUP
+  I:000AH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:08BAH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:08B7H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:08B7H         LINE#         133
+  C:08B9H         LINE#         134
+  C:08BAH         LINE#         135
+  C:08BBH         LINE#         136
+  C:08BDH         LINE#         185
+  C:08C0H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        THREE_KEYS_AND_EIGHT_LIGHTS
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00A0H         PUBLIC        P2
+  C:08C3H         PUBLIC        table
+  C:08A1H         PUBLIC        _delay
+  B:00A0H.0       PUBLIC        KEY0
+  B:00A0H.1       PUBLIC        KEY1
+  B:00A0H.2       PUBLIC        KEY2
+  C:0800H         PUBLIC        main
+  D:0008H         PUBLIC        j
+  D:0009H         PUBLIC        k
+  C:085EH         PUBLIC        keyscan
+  C:0895H         SYMBOL        L?0039
+  -------         PROC          L?0038
+  -------         ENDPROC       L?0038
+  C:0895H         SYMBOL        L?0039
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        t
+  -------         DO            
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/26/2019  11:52:46  PAGE 3
+
+
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:08A1H         LINE#         9
+  C:08A1H         LINE#         10
+  C:08A1H         LINE#         12
+  C:08ABH         LINE#         13
+  C:08B6H         LINE#         14
+  -------         ENDPROC       _DELAY
+  -------         PROC          KEYSCAN
+  C:085EH         LINE#         15
+  C:085EH         LINE#         16
+  C:085EH         LINE#         17
+  C:0861H         LINE#         18
+  C:0861H         LINE#         19
+  C:0868H         LINE#         20
+  C:086EH         LINE#         21
+  C:0870H         LINE#         22
+  C:0873H         LINE#         23
+  C:0873H         LINE#         24
+  C:087AH         LINE#         25
+  C:0880H         LINE#         26
+  C:0882H         LINE#         27
+  C:0885H         LINE#         28
+  C:0885H         LINE#         29
+  C:088CH         LINE#         30
+  C:0892H         LINE#         31
+  C:0894H         LINE#         32
+  -------         ENDPROC       KEYSCAN
+  -------         PROC          MAIN
+  C:0800H         LINE#         33
+  C:0800H         LINE#         34
+  C:0800H         LINE#         35
+  C:0800H         LINE#         36
+  C:0800H         LINE#         37
+  C:0803H         LINE#         38
+  C:0810H         LINE#         39
+  C:0810H         LINE#         40
+  C:0810H         LINE#         41
+  C:081AH         LINE#         42
+  C:081AH         LINE#         43
+  C:081DH         LINE#         44
+  C:0822H         LINE#         45
+  C:0822H         LINE#         46
+  C:0825H         LINE#         47
+  C:0829H         LINE#         48
+  C:0829H         LINE#         49
+  C:0833H         LINE#         50
+  C:0833H         LINE#         51
+  C:0836H         LINE#         52
+  C:083BH         LINE#         53
+  C:083BH         LINE#         54
+  C:083EH         LINE#         55
+  C:0842H         LINE#         56
+  C:0842H         LINE#         57
+  C:084CH         LINE#         58
+  C:084CH         LINE#         59
+  C:084FH         LINE#         60
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/26/2019  11:52:46  PAGE 4
+
+
+  C:0855H         LINE#         61
+  C:0855H         LINE#         62
+  C:0858H         LINE#         63
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        THREE_KEYS_AND_EIGHT_LIGHTS
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00CEH BYTE (10%) *
+******************************************************************************
+
+Program Size: data=11.0 xdata=0 code=206
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
