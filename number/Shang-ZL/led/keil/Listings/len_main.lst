@@ -1,0 +1,47 @@
+C51 COMPILER V9.56.0.0   LEN_MAIN                                                          08/18/2019 16:09:17 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LEN_MAIN
+OBJECT MODULE PLACED IN .\Objects\len_main.obj
+COMPILER INVOKED BY: E:\Keil   51\C51\BIN\C51.EXE len_main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\len_main.lst) TABS(2) OBJECT(.\Objects\len_main.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          
+   3          sbit led = P1^7;
+   4          
+   5          void delay(int a)
+   6          {
+   7   1        int i;
+   8   1        for (i = 1;i<a;i++);
+   9   1      }
+  10          
+  11          int main()
+  12          {
+  13   1        while(1)
+  14   1        {
+  15   2          led = 1;
+  16   2          delay(7500);
+  17   2          led = 0;
+  18   2          delay(7500);
+  19   2        }
+  20   1        return 0;
+  21   1      }
+  22            
+*** WARNING C294 IN LINE 20 OF len_main.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     41    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

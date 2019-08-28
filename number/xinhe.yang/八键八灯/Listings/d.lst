@@ -1,0 +1,13 @@
+C51 COMPILER V9.56.0.0   D                                                                 08/17/2019 17:23:45 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE D
+OBJECT MODULE PLACED IN .\Objects\d.obj
+COMPILER INVOKED BY: E:\C51\BIN\C51.EXE d.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\d.lst) TABS(2) 
+                    -OBJECT(.\Objects\d.obj)
+
+line level    source
+
+*** ERROR C318 OF d.c: can't open file 'd.c'
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

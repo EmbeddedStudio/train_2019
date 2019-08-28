@@ -1,4 +1,0 @@
-"..\Output\STARTUP.obj",
-"..\Output\main.obj" 
-TO "..\Output\Template" 
-PRINT("..\Listing\Template.m51")
