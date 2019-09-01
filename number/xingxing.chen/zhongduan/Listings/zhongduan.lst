@@ -1,0 +1,47 @@
+C51 COMPILER V9.56.0.0   ZHONGDUAN                                                         08/23/2019 18:07:19 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ZHONGDUAN
+OBJECT MODULE PLACED IN .\Objects\zhongduan.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE zhongduan.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\zh
+                    -ongduan.lst) TABS(2) OBJECT(.\Objects\zhongduan.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h>
+   3          sbit p1_0=P1^0;
+   4          void delay (void)
+   5          {
+   6   1        int a=5000;
+   7   1        while(a--)_ncp_();
+*** WARNING C206 IN LINE 7 OF zhongduan.c: '_ncp_': missing function-prototype
+   8   1      }
+   9          void INT0_srv (void£©interrupt 0 using 1
+*** ERROR C100 IN LINE 9 OF zhongduan.c: unprintable character 0xA3 skipped
+*** ERROR C100 IN LINE 9 OF zhongduan.c: unprintable character 0xA9 skipped
+*** ERROR C141 IN LINE 9 OF zhongduan.c: syntax error near '0', expected ')'
+  10          {
+  11            delay();
+  12            if(INT0==0)
+*** ERROR C141 IN LINE 12 OF zhongduan.c: syntax error near 'if'
+*** ERROR C141 IN LINE 12 OF zhongduan.c: syntax error near '==', expected ')'
+  13            {
+  14              p1_0=!p1_0;
+*** ERROR C231 IN LINE 14 OF zhongduan.c: 'p1_0': redefinition
+*** ERROR C247 IN LINE 14 OF zhongduan.c: non-address/-constant initializer
+*** ERROR C231 IN LINE 14 OF zhongduan.c: 'p1_0': redefinition
+  15              while(INT0==0);
+*** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near 'while'
+*** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near '==', expected ')'
+  16            }
+  17          }
+  18            void main()
+  19            {
+  20   1          p1_0=0;
+  21   1          EA=1;
+  22   1          EX0=1;
+  23   1          while(1);
+  24   1        }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  10 ERROR(S)
