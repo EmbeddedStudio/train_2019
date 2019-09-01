@@ -1,4 +1,0 @@
-".\Objects\STARTUP.obj",
-".\Objects\led1.obj" 
-TO ".\Objects\led flicker" 
-PRINT(".\Listings\led flicker.m51")

@@ -1,4 +1,0 @@
-".\Objects\STARTUP.obj",
-".\Objects\led water.obj" 
-TO ".\Objects\led water" 
-PRINT(".\Listings\led water.m51")
