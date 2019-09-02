@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\three keys and eight lights.obj" 
+TO ".\Objects\three keys and eight lights" 
+PRINT(".\Listings\three keys and eight lights.m51")
