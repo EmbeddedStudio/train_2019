@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\数码管闪烁.obj" 
+TO ".\Objects\数码管闪烁" 
+PRINT(".\Listings\数码管闪烁.m51")

@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\one key and one light.obj" 
+TO ".\Objects\一键一灯" 
+PRINT(".\Listings\一键一灯.m51")
