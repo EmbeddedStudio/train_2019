@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   ZHONGDUAN                                                         09/21/2019 14:50:41 PAGE 1   
+C51 COMPILER V9.56.0.0   ZHONGDUAN                                                         09/21/2019 16:38:50 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ZHONGDUAN
@@ -10,39 +10,40 @@ line level    source
 
    1          #include <reg51.h>
    2          #include <intrins.h>
-   3          sbit p1_0=P1^0;
-   4          void delay (void)
+   3          sbit p1=P1^0;
+   4          void delay(void)
    5          {
-   6   1        int a=5000;
-   7   1        while(a--)_ncp_();
-*** WARNING C206 IN LINE 7 OF zhongduan.c: '_ncp_': missing function-prototype
-   8   1      }
-   9          void INT0_srv (void)©iinterrupt 0 using 1
-*** ERROR C100 IN LINE 9 OF zhongduan.c: unprintable character 0xA9 skipped
-*** ERROR C132 IN LINE 9 OF zhongduan.c: 'iinterrupt': not in formal parameter list
-*** ERROR C141 IN LINE 9 OF zhongduan.c: syntax error near '0'
-  10          {
-  11            delay();
-*** ERROR C132 IN LINE 11 OF zhongduan.c: 'delay': not in formal parameter list
-  12            if(INT0==0)
-*** ERROR C141 IN LINE 12 OF zhongduan.c: syntax error near 'if'
-*** ERROR C141 IN LINE 12 OF zhongduan.c: syntax error near '==', expected ')'
-  13            {
-  14              p1_0=!p1_0;
-*** ERROR C231 IN LINE 14 OF zhongduan.c: 'p1_0': redefinition
-*** ERROR C247 IN LINE 14 OF zhongduan.c: non-address/-constant initializer
-*** ERROR C231 IN LINE 14 OF zhongduan.c: 'p1_0': redefinition
-  15              while(INT0= =0);
-*** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near 'while'
-*** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near '=', expected ')'
-  16            }
-  17          }
-  18            void main()
-  19            {
-  20   1          p1_0=0;
-  21   1          EA=1;
-  22   1          EX0=1;
-  23   1          while(1);
-  24   1        }
+   6   1        int a=500;
+   7   1        int i;
+   8   1        for(i=0;i<a;i++);
+   9   1      }
+  10          void INT0_srv(void) interrupt 0 using 1
+  11          {
+  12   1      delay();
+  13   1        if(INT0==0)
+  14   1        {
+  15   2          p1=! p1;
+  16   2         while (INT0==0);
+  17   2        }
+  18   1       }
+  19          void main()
+  20          {
+  21   1      p1=0;
+  22   1        EA=1;
+  23   1        EX0=1;                                    
+  24   1        while(1);
+  25   1      }
 
-C51 COMPILATION COMPLETE.  1 WARNING(S),  11 ERROR(S)
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     59    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
