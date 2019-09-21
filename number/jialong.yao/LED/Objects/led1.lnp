@@ -1,3 +1,0 @@
-".\Objects\led1.obj" 
-TO ".\Objects\led1" 
-PRINT(".\Listings\led1.m51")

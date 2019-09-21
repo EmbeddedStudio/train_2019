@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   ZHONGDUAN                                                         08/23/2019 18:07:19 PAGE 1   
+C51 COMPILER V9.56.0.0   ZHONGDUAN                                                         09/21/2019 14:50:41 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ZHONGDUAN
@@ -17,12 +17,13 @@ line level    source
    7   1        while(a--)_ncp_();
 *** WARNING C206 IN LINE 7 OF zhongduan.c: '_ncp_': missing function-prototype
    8   1      }
-   9          void INT0_srv (void£©interrupt 0 using 1
-*** ERROR C100 IN LINE 9 OF zhongduan.c: unprintable character 0xA3 skipped
+   9          void INT0_srv (void)©iinterrupt 0 using 1
 *** ERROR C100 IN LINE 9 OF zhongduan.c: unprintable character 0xA9 skipped
-*** ERROR C141 IN LINE 9 OF zhongduan.c: syntax error near '0', expected ')'
+*** ERROR C132 IN LINE 9 OF zhongduan.c: 'iinterrupt': not in formal parameter list
+*** ERROR C141 IN LINE 9 OF zhongduan.c: syntax error near '0'
   10          {
   11            delay();
+*** ERROR C132 IN LINE 11 OF zhongduan.c: 'delay': not in formal parameter list
   12            if(INT0==0)
 *** ERROR C141 IN LINE 12 OF zhongduan.c: syntax error near 'if'
 *** ERROR C141 IN LINE 12 OF zhongduan.c: syntax error near '==', expected ')'
@@ -31,9 +32,9 @@ line level    source
 *** ERROR C231 IN LINE 14 OF zhongduan.c: 'p1_0': redefinition
 *** ERROR C247 IN LINE 14 OF zhongduan.c: non-address/-constant initializer
 *** ERROR C231 IN LINE 14 OF zhongduan.c: 'p1_0': redefinition
-  15              while(INT0==0);
+  15              while(INT0= =0);
 *** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near 'while'
-*** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near '==', expected ')'
+*** ERROR C141 IN LINE 15 OF zhongduan.c: syntax error near '=', expected ')'
   16            }
   17          }
   18            void main()
@@ -44,4 +45,4 @@ line level    source
   23   1          while(1);
   24   1        }
 
-C51 COMPILATION COMPLETE.  1 WARNING(S),  10 ERROR(S)
+C51 COMPILATION COMPLETE.  1 WARNING(S),  11 ERROR(S)

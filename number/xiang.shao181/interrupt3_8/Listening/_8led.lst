@@ -1,0 +1,93 @@
+C51 COMPILER V9.56.0.0   _8LED                                                             08/26/2019 10:13:23 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE _8LED
+OBJECT MODULE PLACED IN ..\Output\_8led.obj
+COMPILER INVOKED BY: D:\A-work\Program_Files\C51\BIN\C51.EXE ..\User\_8led.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\User) DE
+                    -BUG OBJECTEXTEND PRINT(..\Listening\_8led.lst) TABS(2) OBJECT(..\Output\_8led.obj)
+
+line level    source
+
+   1          #include "reg51.h"
+   2          
+   3          #define led P0
+   4          sbit key=P2;
+   5          
+   6          int keyvalue=0xff;
+   7          int ledvalue=0;
+   8          int led2=0xfe;
+   9          
+  10          void delay(int i)
+  11          {
+  12   1        while(i>=0)
+  13   1        {
+  14   2          i--;
+  15   2        }
+  16   1      }
+  17          
+  18          void into() interrupt 0
+  19          {
+  20   1        if(key!=keyvalue)
+  21   1        {
+  22   2          delay(1);
+  23   2          if(key!=keyvalue)
+  24   2          {
+  25   3            switch(P2)
+  26   3            {
+  27   4              case(0xfe):
+  28   4                if(led2!=0xfe)
+  29   4                {
+  30   5                  led2=~(~(led2)>>1);
+  31   5                }
+  32   4                break;
+  33   4              case(0xfd):
+  34   4                ledvalue=~ledvalue;
+  35   4                break;
+  36   4              case(0xfb):
+  37   4                if(led2!=0x8f)
+  38   4                {
+  39   5                  led2=~(~(led2)<<1);
+  40   5                }
+  41   4                break;
+  42   4            }
+  43   3          }
+  44   2        }
+  45   1      }
+  46          
+  47          int main()
+  48          {
+  49   1        IT0=1;
+  50   1        IE=0x81;
+  51   1        
+  52   1        key=keyvalue;
+  53   1        
+  54   1        while(1)
+C51 COMPILER V9.56.0.0   _8LED                                                             08/26/2019 10:13:23 PAGE 2   
+
+  55   1        {
+  56   2          led=led2;
+  57   2          if(ledvalue!=0)
+  58   2          {
+  59   3            delay(1);
+  60   3            if(ledvalue!=0)
+  61   3            {
+  62   4              led=0xff;
+  63   4              delay(20);
+  64   4            }
+  65   3          }
+  66   2        }
+  67   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    190    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
