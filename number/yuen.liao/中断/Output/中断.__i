@@ -1,0 +1,1 @@
+"..\User\ÖÐ¶Ï.C" OPTIMIZE (8,SPEED) BROWSE INCDIR(../User) DEBUG OBJECTEXTEND PRINT(..\Listing\ÖÐ¶Ï.lst) TABS (2) OBJECT(..\Output\ÖÐ¶Ï.obj)

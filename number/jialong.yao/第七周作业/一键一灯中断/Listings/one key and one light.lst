@@ -1,0 +1,57 @@
+C51 COMPILER V9.56.0.0   ONE_KEY_AND_ONE_LIGHT                                             08/29/2019 18:48:01 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ONE_KEY_AND_ONE_LIGHT
+OBJECT MODULE PLACED IN .\Objects\one key and one light.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE one key and one light.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\one key and one light.lst) TABS(2) OBJECT(.\Objects\one key and one light.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF one key and one light.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include <reg52.h>
+   2          sbit k1=P3^2;
+   3          sbit led=P1^0;
+   4          void delay_ms(unsigned int xms);
+   5          void key_scan() interrupt 0
+   6          {
+   7   1        if(k1==0)
+   8   1        {delay_ms(10);
+   9   2          if(k1==0)
+  10   2          {
+  11   3            led=~led;
+  12   3            while(!k1);
+  13   3          }
+  14   2        }
+  15   1      }
+  16          void main()
+  17          {
+  18   1        led=1;
+  19   1        TCON=0x01;
+  20   1        IE=0x81;
+  21   1        while(1)
+  22   1        {
+  23   2          delay_ms(3000);
+  24   2        }
+  25   1      }
+  26          void delay_ms(unsigned int xms)
+  27          {
+  28   1        unsigned int x,y;
+  29   1        for(x=xms;x>0;x--)
+  30   1        for(y=130;y>0;y--);
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    121    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

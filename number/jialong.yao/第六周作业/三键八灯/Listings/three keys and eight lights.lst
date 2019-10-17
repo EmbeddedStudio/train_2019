@@ -1,0 +1,101 @@
+C51 COMPILER V9.56.0.0   THREE_KEYS_AND_EIGHT_LIGHTS                                       08/26/2019 11:52:46 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE THREE_KEYS_AND_EIGHT_LIGHTS
+OBJECT MODULE PLACED IN .\Objects\three keys and eight lights.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE three keys and eight lights.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\three keys and eight lights.lst) TABS(2) OBJECT(.\Objects\three keys and eight lights.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF three keys and eight lights.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include "reg51.h"
+   2          #define uchar unsigned char
+   3          #define uint unsigned int 
+   4          uchar j,k;
+   5          sbit KEY0 = P2^0;
+   6          sbit KEY1 = P2^1;
+   7          sbit KEY2 = P2^2;
+   8          uchar code table[] = {0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f};
+   9          void delay(int t)
+  10          {
+  11   1        uchar i;
+  12   1        while(t--)
+  13   1        for(i=0;i<125;i++);
+  14   1      }
+  15          void keyscan()
+  16          {
+  17   1        while(!KEY0)
+  18   1        {
+  19   2          delay(10);
+  20   2          if(KEY0)  k=1;
+  21   2        }
+  22   1        while(!KEY1)
+  23   1        {
+  24   2          delay(10);
+  25   2          if(KEY1) k=2;
+  26   2        }
+  27   1        while(!KEY2)
+  28   1        {
+  29   2          delay(10);
+  30   2          if(KEY2) k=3;
+  31   2        }
+  32   1      }
+  33          void main()
+  34          {
+  35   1        while(1)
+  36   1        {
+  37   2          keyscan();
+  38   2          switch(k)
+  39   2          {
+  40   3            case 1 : 
+  41   3              for(j=0;j<8;j++)
+  42   3            {
+  43   4              keyscan();
+  44   4              if(k != 1) break;
+  45   4              P0=table[j];
+  46   4              delay(500);
+  47   4            }break;
+  48   3            case 2 :
+  49   3              for(j=8;j>0;j--)
+  50   3            {
+  51   4              keyscan();
+  52   4              if(k != 2) break;
+  53   4              P0=table[j];
+C51 COMPILER V9.56.0.0   THREE_KEYS_AND_EIGHT_LIGHTS                                       08/26/2019 11:52:46 PAGE 2   
+
+  54   4              delay(500);
+  55   4            } break;
+  56   3            case 3 :
+  57   3              for(j=0;j<8;j+=2)
+  58   3            {
+  59   4              keyscan();
+  60   4              if(k != 3)  break;
+  61   4              P0 = table[j];
+  62   4              delay(500);
+  63   4            } break;
+  64   3            default : break;
+  65   3          }
+  66   2        }
+  67   1      }
+  68            
+  69                  
+  70                  
+  71                  
+  72          
+  73            
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    183    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
