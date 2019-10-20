@@ -1,0 +1,341 @@
+C51 COMPILER V9.56.0.0   MAIN                                                              10/19/2019 23:23:30 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\kijy\keil51\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "reg51.h"
+   2          typedef unsigned char u8;
+   3          int i,j;
+   4          u8 second=3;//秒
+   5          u8 minite=50;//
+   6          u8 hour=23;//时
+   7          u8 mstcnt=0;
+   8          u8 DigCode[6]={0xFE,0xFD,0xFB,0xF7,0xEF,0xDF};//六个数码挂来诬亮的电位
+   9          u8 SegCode[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};//0~9 的十六进制
+  10          u8 value[6];//保存每一位数码管显示的数
+  11          u8 location=0;//记录具体哪一位在闪烁
+  12          sbit  Segment=P0;//P0  控制显示的数
+  13          sbit  Digital=P1;//P1  控制哪个灯亮
+  14          u8 dispalyCount=5; //控制闪烁间隔
+  15          u8 flickerFlag=0;
+  16          u8 K1=0;
+  17          u8 K2=0;
+  18          
+  19          void delay_ms(int t)//延迟函数
+  20          {
+  21   1        int i,j;
+  22   1        for(i=t;i>0;i--)
+  23   1        for(j=1000;j>0;j--);
+  24   1      } 
+  25          
+  26          void display()//数码管显示
+  27          {
+  28   1      //Key_Control(Key_Scan());
+  29   1         for(j = 0; j > 0; j--) 
+  30   1        {for(i = 0; i < 6; i++)  
+  31   2          {P1 = DigCode[i];     
+  32   3         if(i == 1 || i == 3)                   
+  33   3         { P0 = SegCode[value[i]] | 0x80;} 
+  34   3         else                                  
+  35   3      {P0 = SegCode[value[i]];}             
+  36   3        delay_ms(1);}
+  37   2        }                            
+  38   1        
+  39   1      
+  40   1        for(j = dispalyCount; j > 0; j--)  
+  41   1        {for(i = 0; i < 6; i++)  
+  42   2          {if(location == i)   
+  43   3               {P1 = 0xff;} 
+  44   3               else
+  45   3                 {P1 = DigCode[i];}
+  46   3                 if(i == 1 || i == 3)  
+  47   3                   {P0 = SegCode[value[i]] | 0x80;}
+  48   3                   else
+  49   3      {P0= SegCode[value[i]];}  
+  50   3        delay_ms(1);}
+  51   2        }                           
+  52   1        } 
+  53            
+  54                
+  55          int Key_Scan(void)//按键扫描
+C51 COMPILER V9.56.0.0   MAIN                                                              10/19/2019 23:23:30 PAGE 2   
+
+  56          {
+  57   1        int keyValue=0xFF;
+  58   1        int i=0;
+  59   1        if(P2!=0xff)
+  60   1        {
+  61   2          delay_ms(1);
+  62   2          if(P2!=0xff)//确认P2改变
+  63   2          {keyValue=P2;//把按下后的点位给到keyvalue
+  64   3            while((i<20)&&(P2!=0xff))
+  65   3            {
+  66   4            delay_ms(1);
+  67   4            i++;
+  68   4            }
+  69   3          }
+  70   2        }
+  71   1        return keyValue;
+  72   1      }
+  73          
+  74          
+  75          void Key_Control(int keyValue)//按键控制
+  76          {
+  77   1        switch(keyValue)
+  78   1        {
+  79   2      case(0xfe): //1111 1110  第一的按键 减
+  80   2        if(flickerFlag!=0)
+  81   2        {K1=~K1;}
+  82   2            break;  
+  83   2      case(0xfd)://1111 1101 第叶二个按键  加
+  84   2        if(flickerFlag!=0)
+  85   2        {K2=~K2;}
+  86   2            break;
+  87   2      case(0xfb):                                           //1111 1011  第三个按键  右移
+  88   2            if(flickerFlag!=0)
+  89   2            {
+  90   3              if(location!=5)
+  91   3            {location=location+1;}
+  92   3          }
+  93   2            break;
+  94   2      case(0xF7):                                            //1111 0111  第四个按键  左移
+  95   2            if(flickerFlag!=0)
+  96   2            {
+  97   3              if(location!=0)
+  98   3              {location=location-1;}
+  99   3            }
+ 100   2            break;    
+ 101   2      case(0xEF):                                            //1110 1111   第五个按键  闪烁
+ 102   2            flickerFlag=~flickerFlag;
+ 103   2                 break; 
+ 104   2            } 
+ 105   1        }
+ 106          
+ 107          void time(void)//时间
+ 108          {
+ 109   1        value[0]=hour/10;
+ 110   1        value[1]=hour%10;
+ 111   1        value[2]=minite/10;
+ 112   1        value[3]=minite%10;
+ 113   1        value[4]=second/10;
+ 114   1        value[5]=second%10;
+ 115   1      }
+ 116          void time_pro(void)//时间进制
+ 117            { 
+C51 COMPILER V9.56.0.0   MAIN                                                              10/19/2019 23:23:30 PAGE 3   
+
+ 118   1          if(second==60)                    
+ 119   1                { second=0;
+ 120   2                  minite++;
+ 121   2                 if( minite==60)              
+ 122   2                    { minite=0;
+ 123   3                      hour++;
+ 124   3                    if(hour==24)              
+ 125   3                       {hour=0; }
+ 126   3                    }
+ 127   2                }
+ 128   1        }  
+ 129            void TIM0_Handler() interrupt 1//计数
+ 130          {
+ 131   1        TMOD = 0x01;
+ 132   1           TH0=0x0B;
+ 133   1            TL0=0xDC;
+ 134   1              mstcnt++;
+ 135   1              if(mstcnt==16)
+ 136   1              {
+ 137   2                  second++;
+ 138   2                  mstcnt=0;    
+ 139   2              }               
+ 140   1            } 
+ 141                
+ 142          void minus()//减
+ 143          {
+ 144   1        if(K1!=0)
+ 145   1        {
+ 146   2          switch(location)
+ 147   2          {
+ 148   3            case(0):
+ 149   3            {if(hour>=10)
+ 150   4              hour=hour-10;
+ 151   4             else 
+ 152   4              hour=hour+20;
+ 153   4              }
+ 154   3            break;
+ 155   3            case(1):
+ 156   3            {
+ 157   4              if(hour>9)
+ 158   4              {hour=hour-1; 
+ 159   5              if((hour-9)%10==0)
+ 160   5              hour=hour+10;       
+ 161   5              }
+ 162   4              if(0<hour&&hour<10)
+ 163   4                hour=hour-1;
+ 164   4              else
+ 165   4                hour=9;
+ 166   4            }
+ 167   3            break;
+ 168   3            case(2):
+ 169   3            {if(minite>=10)
+ 170   4            minite=minite-10;
+ 171   4            else
+ 172   4              minite=minite+50;}
+ 173   3            break;
+ 174   3            case(3):
+ 175   3            {
+ 176   4            if(minite>9)
+ 177   4            {
+ 178   5            minite=minite-1;
+ 179   5            if((minite-9)%10==0)
+C51 COMPILER V9.56.0.0   MAIN                                                              10/19/2019 23:23:30 PAGE 4   
+
+ 180   5              minite=minite+10;
+ 181   5            }
+ 182   4            if(0<minite&&minite<10)
+ 183   4              minite=minite-1;
+ 184   4            else
+ 185   4              minite=9;
+ 186   4          }
+ 187   3            break;
+ 188   3            case(4):
+ 189   3            {if(second>=10)
+ 190   4            second=second-10;
+ 191   4            else
+ 192   4              second=second+50;
+ 193   4            }
+ 194   3            break;
+ 195   3            case(5):
+ 196   3            {
+ 197   4              if(second>9)
+ 198   4            {second=second-1;
+ 199   5            if((second-9)%10==0)
+ 200   5            second=second+10;
+ 201   5            }
+ 202   4              if(0<second&&second<10)
+ 203   4              second=second-1;
+ 204   4              else
+ 205   4                second=9;
+ 206   4            }
+ 207   3            break;
+ 208   3          }
+ 209   2        }
+ 210   1          K1=0;
+ 211   1        }
+ 212          
+ 213          void add()//加
+ 214          {
+ 215   1      if(K2!=0)
+ 216   1        {
+ 217   2          switch(location)
+ 218   2          {
+ 219   3            case(0):
+ 220   3            {hour=hour+10;
+ 221   4            if(hour>30)
+ 222   4              hour=hour-30;
+ 223   4            }
+ 224   3            break;
+ 225   3            case(1):
+ 226   3            {hour=hour+1;
+ 227   4            if(hour%10==0)
+ 228   4              hour=hour-10;
+ 229   4            }
+ 230   3            break;
+ 231   3            case(2):
+ 232   3            {minite=minite+10;
+ 233   4            if(minite>=60)
+ 234   4              minite=minite-60;
+ 235   4            }
+ 236   3            break;
+ 237   3            case(3):
+ 238   3            {minite=minite+1;
+ 239   4              if(minite%10==0)
+ 240   4              minite=minite-10;
+ 241   4            }
+C51 COMPILER V9.56.0.0   MAIN                                                              10/19/2019 23:23:30 PAGE 5   
+
+ 242   3            break;
+ 243   3            case(4):
+ 244   3            {second=second+10;
+ 245   4            if(second>=60)
+ 246   4              second=second-60;
+ 247   4          }
+ 248   3            break;
+ 249   3            case(5):
+ 250   3            {second=second+1;
+ 251   4              if(second%10==0)
+ 252   4              second=second-10;
+ 253   4            }
+ 254   3            break;
+ 255   3          }
+ 256   2        K2=0;
+ 257   2        }   
+ 258   1      }
+ 259          
+ 260          void main()//主函数
+ 261          {
+ 262   1      TMOD= 0x01;
+ 263   1      
+ 264   1        TH0=0x0b;
+ 265   1        TL0=0xdc;
+ 266   1            IE=0x83;
+ 267   1            IT0=1;
+ 268   1        TR0=1;
+ 269   1        while(1)
+ 270   1        {
+ 271   2          minus();
+ 272   2          add();
+ 273   2          time();
+ 274   2          time_pro();
+ 275   2        display();
+ 276   2        }
+ 277   1      }
+ 278          void  INT0_Handler()  interrupt 0 
+ 279          {
+ 280   1         Key_Control(Key_Scan());
+ 281   1      }
+ 282              
+ 283            
+ 284            
+ 285            
+ 286            
+ 287            
+ 288            
+ 289            
+ 290            
+ 291            
+ 292            
+ 293            
+ 294            
+ 295            
+ 296            
+ 297            
+ 298            
+ 299            
+ 300            
+ 301            
+ 302            
+ 303            
+C51 COMPILER V9.56.0.0   MAIN                                                              10/19/2019 23:23:30 PAGE 6   
+
+ 304            
+ 305            
+ 306            
+ 307            
+ 308          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    983    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     35    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
