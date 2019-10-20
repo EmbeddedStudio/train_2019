@@ -1,0 +1,110 @@
+#include <reg52.h>
+#include "bsp_delay.h"
+u8 Interruptcount = 0;
+unsigned char code distab[16] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d, 
+0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};  //段选码表
+unsigned char position[6] = {0xdf,0xef,0xf7,0xfb,0xfd,0xfe};//位选码表
+unsigned char digit[6] = {6,5,9,5,3,2};//控制显示的数字
+u8 i,j;
+
+void express(void);//显示
+
+void main()
+{
+        IE = 0x83;
+        TMOD = 0x01;
+        IT0 = 1;
+        while(1)
+        {
+                express();
+        }
+
+}
+void carry(void)//进位
+{
+        if(digit[0] < 9)
+        {
+                digit[0]++;
+        }
+        else//digit[0] == 9
+        {
+                if(digit[1] < 5)
+                {
+                        digit[1]++;
+                }
+                else//digit[1] == 5
+                {
+                        if(digit[2] < 9)
+                        {
+                                digit[2]++;
+                        }
+                        else//digit[2] == 9
+                        {
+                                if(digit[3] < 5)
+                                {
+                                        digit[3]++;
+                                }
+                                else//digit[3] == 5
+                                {
+                                        if(digit[4] < 9 && digit[5] < 2)
+                                        {
+                                                digit[4]++;
+                                        }
+                                        else if(digit[4] == 4 && digit[5] == 2)
+                                        {
+                                                digit[4] = 0;
+                                        }
+                                        else//digit[4] == 9 || digit[4] == 4
+                                        {
+                                                if(digit[5] < 2)
+                                                {
+                                                        digit[5]++;
+                                                }
+                                                else//digit[5] == 2
+                                                {
+                                                        digit[5] = 0;
+                                                }
+                                                digit[4] = 0;
+                                        }
+                                        digit[3] = 0;
+                                }
+                                digit[2] = 0;
+                        }
+                        digit[1] = 0;
+                }
+                digit[0] = 0;
+        }
+}
+void express(void)//显示
+{
+        for(j = 0;j < 6;j++)
+        {
+                P2 = position[j];
+                if(j == 2 || j == 4)
+                {
+                        P0 = distab[digit[j]]|0x80;
+                }
+                else
+                {
+                        P0 = distab[digit[j]];
+                }
+                delay(1);
+        }
+}
+void TIM0_Handler() interrupt 1//定时器
+{
+        TR0 = 0;
+        TH0 = 0x0b;
+        TL0 = 0xdc;
+        TR0 = 1;
+        Interruptcount++;
+        if(Interruptcount == 16)
+        {
+                Interruptcount = 0;
+                carry();
+        }
+}
+//一个控制设置功能，就是闪烁，第二个控制加，减，一个控制左右移（设置的情况下）
+//中断，定时器
+
+
