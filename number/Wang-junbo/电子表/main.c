@@ -1,8 +1,5 @@
-#include"reg51.h"
-
+#include "reg51.h"
 typedef unsigned char u8;
-typedef unsigned int  u16;
-
 int i,j;
 u8 second=3;//秒
 u8 minite=50;//
@@ -14,7 +11,7 @@ u8 value[6];//保存每一位数码管显示的数
 u8 location=0;//记录具体哪一位在闪烁
 sbit  Segment=P0;//P0  控制显示的数
 sbit  Digital=P1;//P1  控制哪个灯亮
-u8 dispalyCount=0; //控制闪烁间隔
+u8 dispalyCount=5; //控制闪烁间隔
 u8 flickerFlag=0;
 u8 K1=0;
 u8 K2=0;
@@ -29,21 +26,21 @@ void delay_ms(int t)//延迟函数
 void display()//数码管显示
 {
 //Key_Control(Key_Scan());
-	 for(j = 5; j > 0; j--) 
+	 for(j = 0; j > 0; j--) 
 	{for(i = 0; i < 6; i++)  
 		{P1 = DigCode[i];     
-   if(i == 1 || i == 3)                   //加小数点操作
-   { P0 = SegCode[value[i]] | 0x80;} // 
-	 else                                   //
-{P0 = SegCode[value[i]];}            //  
+   if(i == 1 || i == 3)                   
+   { P0 = SegCode[value[i]] | 0x80;} 
+	 else                                  
+{P0 = SegCode[value[i]];}             
 	delay_ms(1);}
-	}                             //第一个for 控制一直亮
+	}                            
 	
 
 	for(j = dispalyCount; j > 0; j--)  
 	{for(i = 0; i < 6; i++)  
 		{if(location == i)   
-				 {P1 = 0xff;}  //1111 1111 
+				 {P1 = 0xff;} 
 				 else
 					 {P1 = DigCode[i];}
 					 if(i == 1 || i == 3)  
@@ -51,7 +48,7 @@ void display()//数码管显示
 						 else
 {P0= SegCode[value[i]];}  
 	delay_ms(1);}
-	}                             //第二个for 将location位的控制不亮      一个亮一个不亮 就形成闪烁
+	}                           
 	} 
 	
 			
@@ -262,30 +259,26 @@ if(K2!=0)
 
 void main()//主函数
 {
-TMOD = 0x01; //设置定时器工作方式
-TH0=0x0B;            
-TL0=0xDC;//3036
-IE=0x82;
-TR0=1; //开启中断
+TMOD= 0x01;
+
+	TH0=0x0b;
+	TL0=0xdc;
+			IE=0x83;
+			IT0=1;
+	TR0=1;
 	while(1)
 	{
-		Key_Control(Key_Scan());
-		
-		if(flickerFlag!=0)
-		{dispalyCount=5;
-		TR0=0;}
-		else
-		{dispalyCount=0;
-		TR0=1;}
-		
-		Minus();
-		Add();
+		minus();
+		add();
 		time();
 		time_pro();
 	display();
 	}
 }
-
+void  INT0_Handler()  interrupt 0 
+{
+   Key_Control(Key_Scan());
+}
 		
 	
 	
